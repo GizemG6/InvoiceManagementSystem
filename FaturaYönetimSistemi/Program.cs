@@ -1,6 +1,5 @@
 using FaturaYönetimSistemi.Models.DB;
 using FaturaYönetimSistemi.Repositories;
-using FaturaYönetimSistemi.Repositories.UserRepository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

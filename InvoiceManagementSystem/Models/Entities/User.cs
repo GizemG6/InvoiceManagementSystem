@@ -1,9 +1,11 @@
 ﻿using InvoiceManagementSystem.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace InvoiceManagementSystem.Models.Entities
 {
     public class User
     {
+        [Key]
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -16,5 +18,9 @@ namespace InvoiceManagementSystem.Models.Entities
         public bool IsOwner { get; set; } // whether the user is an apartment owner or not
         public int ApartmentId { get; set; }
         public bool IsDelete { get; set; }
+
+        public ICollection<Apartment> Apartments { get; set; }
+        public ICollection<Bill> Bills {  get; set; }
+        public ICollection<Payment> Payments { get; set; }
     }
 }

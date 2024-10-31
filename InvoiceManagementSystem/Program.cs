@@ -1,4 +1,5 @@
 using InvoiceManagementSystem.Models.Context;
+using InvoiceManagementSystem.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace InvoiceManagementSystem
@@ -11,6 +12,8 @@ namespace InvoiceManagementSystem
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddScoped<UserService, UserService>();
 
             // Add SqlServer
             builder.Services.AddDbContext<ApplicationDbContext>(options => 

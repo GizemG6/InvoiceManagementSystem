@@ -1,0 +1,41 @@
+﻿@model IEnumerable<InvoiceManagementSystem.Models.Entities.User>
+
+@{
+    ViewBag.Title = "Kullanıcı Listesi";
+}
+
+<h2>Kullanıcı Listesi</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ad</th>
+            <th>Soyad</th>
+            <th>Email</th>
+            <th>Telefon</th>
+            <th>Rol</th>
+            <th>Aksiyonlar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+                <td>@user.Email</td>
+                <td>@user.Phone</td>
+                <td>@user.Role</td>
+                <td>
+                    <a asp-action="GetUser" asp-route-id="@user.Id">Göster</a> |
+                    <a asp-action="UpdateUser" asp-route-id="@user.Id">Düzenle</a> |
+                    <form asp-action="RemoveUser" asp-route-id="@user.Id" method="post" style="display:inline;">
+                        <button type="submit" onclick="return confirm('Bu kullanıcıyı silmek istediğinize emin misiniz?');">Sil</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="CreateUser" class="btn btn-primary">Yeni Kullanıcı Oluştur</a>

@@ -1,5 +1,7 @@
 using InvoiceManagementSystem.Models.Context;
+using InvoiceManagementSystem.Models.Entities;
 using InvoiceManagementSystem.Services;
+using InvoiceManagementSystem.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace InvoiceManagementSystem
@@ -13,9 +15,10 @@ namespace InvoiceManagementSystem
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddScoped<UserService, UserService>();
-            builder.Services.AddScoped<ApartmentService, ApartmentService>();
-            builder.Services.AddScoped<BillService, BillService>();
+            builder.Services.AddScoped<IService<User>, UserService>();
+            builder.Services.AddScoped<IService<Apartment>, ApartmentService>();
+            builder.Services.AddScoped<IService<Bill>, BillService>();
+            builder.Services.AddScoped<IService<Message>, MessageService>();
 
             // Add SqlServer
             builder.Services.AddDbContext<ApplicationDbContext>(options => 
@@ -30,6 +33,10 @@ namespace InvoiceManagementSystem
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=User}/{action=Index}/{id?}");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

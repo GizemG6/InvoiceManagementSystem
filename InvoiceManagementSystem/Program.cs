@@ -14,6 +14,8 @@ namespace InvoiceManagementSystem
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddScoped<UserService, UserService>();
+            builder.Services.AddScoped<ApartmentService, ApartmentService>();
+            builder.Services.AddScoped<BillService, BillService>();
 
             // Add SqlServer
             builder.Services.AddDbContext<ApplicationDbContext>(options => 

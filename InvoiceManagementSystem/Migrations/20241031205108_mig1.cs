@@ -102,35 +102,6 @@ namespace InvoiceManagementSystem.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Payment",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsSuccessful = table.Column<bool>(type: "bit", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    BillId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Payment", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Payment_Bills_BillId",
-                        column: x => x.BillId,
-                        principalTable: "Bills",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Payment_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Apartments_UserId",
                 table: "Apartments",
@@ -139,17 +110,6 @@ namespace InvoiceManagementSystem.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Bills_UserId",
                 table: "Bills",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Payment_BillId",
-                table: "Payment",
-                column: "BillId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Payment_UserId",
-                table: "Payment",
                 column: "UserId");
         }
 
@@ -160,13 +120,10 @@ namespace InvoiceManagementSystem.Migrations
                 name: "Apartments");
 
             migrationBuilder.DropTable(
-                name: "Messages");
-
-            migrationBuilder.DropTable(
-                name: "Payment");
-
-            migrationBuilder.DropTable(
                 name: "Bills");
+
+            migrationBuilder.DropTable(
+                name: "Messages");
 
             migrationBuilder.DropTable(
                 name: "Users");

@@ -21,6 +21,5 @@ namespace InvoiceManagementSystem.Models.Entities
 
         public ICollection<Apartment> Apartments { get; set; }
         public ICollection<Bill> Bills {  get; set; }
-        public ICollection<Payment> Payments { get; set; }
     }
 }

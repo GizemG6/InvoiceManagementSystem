@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InvoiceManagementSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241031203421_mig1")]
+    [Migration("20241031205108_mig1")]
     partial class mig1
     {
         /// <inheritdoc />
@@ -135,39 +135,6 @@ namespace InvoiceManagementSystem.Migrations
                     b.ToTable("Messages");
                 });
 
-            modelBuilder.Entity("InvoiceManagementSystem.Models.Entities.Payment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("BillId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsSuccessful")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("PaymentDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BillId")
-                        .IsUnique();
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Payment");
-                });
-
             modelBuilder.Entity("InvoiceManagementSystem.Models.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -243,38 +210,11 @@ namespace InvoiceManagementSystem.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("InvoiceManagementSystem.Models.Entities.Payment", b =>
-                {
-                    b.HasOne("InvoiceManagementSystem.Models.Entities.Bill", "Bill")
-                        .WithOne("Payment")
-                        .HasForeignKey("InvoiceManagementSystem.Models.Entities.Payment", "BillId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("InvoiceManagementSystem.Models.Entities.User", "User")
-                        .WithMany("Payments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Bill");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("InvoiceManagementSystem.Models.Entities.Bill", b =>
-                {
-                    b.Navigation("Payment")
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("InvoiceManagementSystem.Models.Entities.User", b =>
                 {
                     b.Navigation("Apartments");
 
                     b.Navigation("Bills");
-
-                    b.Navigation("Payments");
                 });
 #pragma warning restore 612, 618
         }

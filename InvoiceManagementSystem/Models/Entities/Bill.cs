@@ -16,7 +16,5 @@ namespace InvoiceManagementSystem.Models.Entities
 
         public int UserId { get; set; }
         public User User { get; set; }
-
-        public Payment Payment { get; set; }
     }
 }

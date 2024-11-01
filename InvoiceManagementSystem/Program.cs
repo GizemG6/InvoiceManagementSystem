@@ -34,9 +34,9 @@ namespace InvoiceManagementSystem
                 app.UseHsts();
             }
 
-            app.MapControllerRoute(
+            /*app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=User}/{action=Index}/{id?}");
+                pattern: "{controller=User}/{action=Index}/{id?}"); */
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

@@ -15,8 +15,8 @@ namespace InvoiceManagementSystem.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var users = await _apartmentService.GetAllAsync();
-            return View(users);
+            var apartments = await _apartmentService.GetAllAsync();
+            return View(apartments);
         }
     }
 }

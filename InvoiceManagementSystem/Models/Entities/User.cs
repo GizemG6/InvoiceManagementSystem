@@ -19,7 +19,7 @@ namespace InvoiceManagementSystem.Models.Entities
         public int ApartmentId { get; set; }
         public bool IsDelete { get; set; }
 
-        public ICollection<Apartment> Apartments { get; set; }
-        public ICollection<Bill> Bills {  get; set; }
+        public ICollection<Apartment> Apartments { get; set; } = new List<Apartment>();
+        public ICollection<Bill> Bills {  get; set; } = new List<Bill>();
     }
 }

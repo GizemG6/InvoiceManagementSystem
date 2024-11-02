@@ -22,13 +22,18 @@ namespace InvoiceManagementSystem.Controllers
 
         public async Task<IActionResult> GetUser(int id)
         {
-            var user = await _userService.GetByIdAsync(id);
+            var user = new User();
             return View(user);
         }
         public async Task<IActionResult> CreateUser(User user)
         {
-            await _userService.CreateAsync(user);
-            return View(user);
+            if (ModelState.IsValid)
+            {
+                await _userService.CreateAsync(user);
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("GetUser");
         }
         public async Task<IActionResult> RemoveUser(int id)
         {

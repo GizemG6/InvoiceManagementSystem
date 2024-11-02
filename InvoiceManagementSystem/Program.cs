@@ -1,7 +1,9 @@
+using FluentValidation.AspNetCore;
 using InvoiceManagementSystem.Models.Context;
 using InvoiceManagementSystem.Models.Entities;
 using InvoiceManagementSystem.Services;
 using InvoiceManagementSystem.Services.Interfaces;
+using InvoiceManagementSystem.Validator;
 using Microsoft.EntityFrameworkCore;
 
 namespace InvoiceManagementSystem
@@ -14,6 +16,8 @@ namespace InvoiceManagementSystem
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
 
             builder.Services.AddScoped<IService<User>, UserService>();
             builder.Services.AddScoped<IService<Apartment>, ApartmentService>();

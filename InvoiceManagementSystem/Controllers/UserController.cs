@@ -19,6 +19,7 @@ namespace InvoiceManagementSystem.Controllers
             var users = await _userService.GetAllAsync();
             return View(users);
         }
+
         public async Task<IActionResult> GetUser(int id)
         {
             var user = await _userService.GetByIdAsync(id);
@@ -27,7 +28,7 @@ namespace InvoiceManagementSystem.Controllers
         public async Task<IActionResult> CreateUser(User user)
         {
             await _userService.CreateAsync(user);
-            return View();
+            return View(user);
         }
         public async Task<IActionResult> RemoveUser(int id)
         {

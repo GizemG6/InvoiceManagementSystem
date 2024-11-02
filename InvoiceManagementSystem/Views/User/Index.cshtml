@@ -27,7 +27,6 @@
                 <td>@user.Phone</td>
                 <td>@user.Role</td>
                 <td>
-                    <a asp-action="GetUser" asp-route-id="@user.Id">Göster</a> |
                     <a asp-action="UpdateUser" asp-route-id="@user.Id">Düzenle</a> |
                     <form asp-action="RemoveUser" asp-route-id="@user.Id" method="post" style="display:inline;">
                         <button type="submit" onclick="return confirm('Bu kullanıcıyı silmek istediğinize emin misiniz?');">Sil</button>
@@ -38,4 +37,4 @@
     </tbody>
 </table>
 
-<a asp-action="CreateUser" class="btn btn-primary">Yeni Kullanıcı Oluştur</a>
+<a asp-action="GetUser" class="btn btn-primary">Yeni Kullanıcı Oluştur</a>

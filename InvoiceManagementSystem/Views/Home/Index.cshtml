@@ -1,8 +1,21 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model InvoiceManagementSystem.Models.Entities.LoginUser
+
+<h2>Login</h2>
+
+@if (ViewBag.ShowError == true)
+{
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<form asp-action="Index" method="post">
+    <div>
+        <label>Email:</label>
+        <input asp-for="Email" required />
+    </div>
+    <div>
+        <label>Password:</label>
+        <input asp-for="Password" type="password" required />
+    </div>
+    <button type="submit">Login</button>
+</form>
+

@@ -39,7 +39,7 @@ namespace InvoiceManagementSystem.Controllers
         {
             var user = await _userService.GetByIdAsync(id);
             await _userService.RemoveAsync(user);
-            return View();
+            return RedirectToAction("Index");
         }
         public async Task<IActionResult> UpdateUser(User User)
         {

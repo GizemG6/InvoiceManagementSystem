@@ -39,19 +39,5 @@ namespace InvoiceManagementSystem.Controllers
             return View("Index", loginUser);
         }
 
-        /*public async Task<IActionResult> AdminLogin(LoginUser loginUser)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == loginUser.Email && u.Password == loginUser.Password);
-                if (user != null)
-                {
-                    return RedirectToAction("Index", "User");
-                }
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                ViewBag.ShowError = true;
-            }
-            return View("Index", loginUser);
-        }*/
     }
 }

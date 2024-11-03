@@ -27,6 +27,7 @@ namespace InvoiceManagementSystem.Controllers
         }
         public async Task<IActionResult> CreateUser(User user)
         {
+
             if (ModelState.IsValid)
             {
                 await _userService.CreateAsync(user);

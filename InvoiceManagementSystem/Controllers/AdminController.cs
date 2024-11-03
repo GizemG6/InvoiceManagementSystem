@@ -21,7 +21,7 @@ namespace InvoiceManagementSystem.Controllers
             return View(users);
         }
 
-        public async Task<IActionResult> GetUser(int id)
+        public async Task<IActionResult> ListUser(int id)
         {
             var user = new User();
             return View(user);
@@ -36,7 +36,7 @@ namespace InvoiceManagementSystem.Controllers
                 return RedirectToAction("AdminIndex");
             }
 
-            return RedirectToAction("GetUser");
+            return RedirectToAction("ListUser");
         }
         public async Task<IActionResult> RemoveUser(int id)
         {

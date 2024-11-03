@@ -31,7 +31,14 @@ namespace InvoiceManagementSystem.Controllers
                 var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == loginUser.Email && u.Password == loginUser.Password);
                 if (user != null)
                 {
-                    return RedirectToAction("AdminIndex", "Admin");
+                    if (user.Role == Enums.Role.Admin)
+                    {
+                        return RedirectToAction("AdminIndex", "Admin");
+                    }
+                    else if (user.Role == Enums.Role.Resident)
+                    {
+                        return RedirectToAction("UserIndex", "User");
+                    }
                 }
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 ViewBag.ShowError = true;

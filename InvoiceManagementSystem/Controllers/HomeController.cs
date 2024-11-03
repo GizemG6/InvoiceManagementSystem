@@ -24,23 +24,7 @@ namespace InvoiceManagementSystem.Controllers
             return View();
         }
 
-        public async Task<IActionResult> UserLogin(User user)
-        {
-            user.Password = PasswordGenerator.GeneratePassword();
-            user.Role = Enums.Role.Resident;
-
-            ModelState.Remove("Password");
-
-            if (ModelState.IsValid)
-            {
-                await _userService.CreateAsync(user);
-                return RedirectToAction("Index", "User");
-            }
-
-            return View("Index");
-        }
-
-        public async Task<IActionResult> AdminLogin(LoginUser loginUser)
+        public async Task<IActionResult> UserLogin(LoginUser loginUser)
         {
             if (ModelState.IsValid)
             {
@@ -54,5 +38,20 @@ namespace InvoiceManagementSystem.Controllers
             }
             return View("Index", loginUser);
         }
+
+        /*public async Task<IActionResult> AdminLogin(LoginUser loginUser)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == loginUser.Email && u.Password == loginUser.Password);
+                if (user != null)
+                {
+                    return RedirectToAction("Index", "User");
+                }
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                ViewBag.ShowError = true;
+            }
+            return View("Index", loginUser);
+        }*/
     }
 }

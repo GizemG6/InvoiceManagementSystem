@@ -1,4 +1,5 @@
-﻿using InvoiceManagementSystem.Models.Entities;
+﻿using InvoiceManagementSystem.Common;
+using InvoiceManagementSystem.Models.Entities;
 using InvoiceManagementSystem.Services;
 using InvoiceManagementSystem.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +28,8 @@ namespace InvoiceManagementSystem.Controllers
         }
         public async Task<IActionResult> CreateUser(User user)
         {
-
+            user.Password = PasswordGenerator.GeneratePassword();
+            ModelState.Remove(nameof(user.Password));
             if (ModelState.IsValid)
             {
                 await _userService.CreateAsync(user);

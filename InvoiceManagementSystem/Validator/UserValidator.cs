@@ -13,8 +13,8 @@ namespace InvoiceManagementSystem.Validator
             RuleFor(user => user.LastName)
                 .NotEmpty().WithMessage("Soyisim alanı zorunludur.");
 
-            RuleFor(user => user.Password)
-                .NotEmpty().WithMessage("Şifre alanı zorunludur.");
+            /*RuleFor(user => user.Password)
+                .NotEmpty().WithMessage("Şifre alanı zorunludur.");*/
 
             RuleFor(user => user.Email)
                 .NotEmpty().WithMessage("Email alanı zorunludur.");

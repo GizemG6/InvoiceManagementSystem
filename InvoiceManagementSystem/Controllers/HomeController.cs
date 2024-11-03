@@ -31,12 +31,12 @@ namespace InvoiceManagementSystem.Controllers
                 var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == loginUser.Email && u.Password == loginUser.Password);
                 if (user != null)
                 {
-                    return RedirectToAction("Index", "User");
+                    return RedirectToAction("AdminIndex", "Admin");
                 }
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 ViewBag.ShowError = true;
             }
-            return View("Index", loginUser);
+            return View("AdminIndex", loginUser);
         }
 
     }

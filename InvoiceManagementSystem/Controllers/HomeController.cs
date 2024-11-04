@@ -37,7 +37,7 @@ namespace InvoiceManagementSystem.Controllers
                     }
                     else if (user.Role == Enums.Role.Resident)
                     {
-                        return RedirectToAction("UserIndex", "User");
+                        return RedirectToAction("UserIndex", "User", loginUser);
                     }
                 }
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");

@@ -1,23 +1,27 @@
 ﻿using InvoiceManagementSystem.Common;
+using InvoiceManagementSystem.Models.Context;
 using InvoiceManagementSystem.Models.Entities;
 using InvoiceManagementSystem.Services;
 using InvoiceManagementSystem.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace InvoiceManagementSystem.Controllers
 {
     public class AdminController : Controller
     {
         private readonly IService<User> _userService;
+        private readonly ApplicationDbContext _context;
 
-        public AdminController(IService<User> userService)
+        public AdminController(IService<User> userService, ApplicationDbContext context)
         {
             _userService = userService;
+            _context = context;
         }
         public async Task<IActionResult> AdminIndex()
         {
-            var users = await _userService.GetAllAsync();
+            var users = await _context.Users.Include(u => u.Apartments).ToListAsync();
             return View(users);
         }
 
@@ -26,6 +30,7 @@ namespace InvoiceManagementSystem.Controllers
             var user = new User();
             return View(user);
         }
+
         public async Task<IActionResult> CreateUser(User user)
         {
             user.Password = PasswordGenerator.GeneratePassword();

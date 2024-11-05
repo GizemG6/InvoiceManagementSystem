@@ -35,7 +35,7 @@ namespace InvoiceManagementSystem.Controllers
                     {
                         return RedirectToAction("AdminIndex", "Admin");
                     }
-                    else if (user.Role == Enums.Role.Resident)
+                    else if (user.Role == Enums.Role.Kullanici)
                     {
                         return RedirectToAction("UserIndex", "User", loginUser);
                     }

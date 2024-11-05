@@ -3,6 +3,6 @@
     public enum Role
     {
         Admin = 1,
-        Resident = 2
+        Kullanici = 2
     }
 }

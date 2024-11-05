@@ -13,7 +13,7 @@ namespace InvoiceManagementSystem.Controllers
             _apartmentService = apartmentService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> ListApartment()
         {
             var apartments = await _apartmentService.GetAllAsync();
             return View(apartments);

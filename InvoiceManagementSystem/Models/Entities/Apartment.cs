@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using InvoiceManagementSystem.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace InvoiceManagementSystem.Models.Entities
 {
@@ -10,7 +11,7 @@ namespace InvoiceManagementSystem.Models.Entities
         public string Floor { get; set; }
         public string Block { get; set; }
         public string Type { get; set; }
-        public bool Status { get; set; }
+        public Status Status { get; set; }
 
         public int UserId { get; set; }
         public User User { get; set; }

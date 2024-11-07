@@ -31,9 +31,16 @@ namespace InvoiceManagementSystem.Controllers
             if (ModelState.IsValid)
             {
                 await _apartmentService.CreateAsync(apartment);
-                return RedirectToAction("Admin", "AdminIndex");
+                return RedirectToAction("AdminIndex", "Admin");
             }
             return RedirectToAction("ListApartment");
+        }
+
+        public async Task<IActionResult> RemoveApartment(int id)
+        {
+            var apartment = await _apartmentService.GetByIdAsync(id);
+            await _apartmentService.RemoveAsync(apartment);
+            return RedirectToAction("AdminIndex", "Admin");
         }
     }
 }

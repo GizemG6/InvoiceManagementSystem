@@ -61,6 +61,12 @@
                 <td>@string.Join(", ", user.Apartments.Select(a => a.Block))</td>
                 <td>@string.Join(", ", user.Apartments.Select(a => a.Status))</td>
                 <td>@string.Join(", ", user.Apartments.Select(a => a.User.FirstName))</td>
+                <td>
+                    <a asp-action="UpdateApartment" asp-route-id="@string.Join(", ", user.Apartments.Select(a => a.Id))">Düzenle</a> |
+                    <form asp-controller="Apartment" asp-action="RemoveApartment" asp-route-id="@string.Join(", ", user.Apartments.Select(a => a.Id))" method="post" style="display:inline;">
+                        <button type="submit" onclick="return confirm('Bu apartmanı silmek istediğinize emin misiniz?');">Sil</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>

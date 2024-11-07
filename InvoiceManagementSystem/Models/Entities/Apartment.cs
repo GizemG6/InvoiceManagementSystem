@@ -14,6 +14,6 @@ namespace InvoiceManagementSystem.Models.Entities
         public Status Status { get; set; }
 
         public int UserId { get; set; }
-        public User User { get; set; }
+        public User? User { get; set; }
     }
 }

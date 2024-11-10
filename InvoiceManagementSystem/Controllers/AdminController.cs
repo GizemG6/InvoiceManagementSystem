@@ -25,9 +25,14 @@ namespace InvoiceManagementSystem.Controllers
             return View(users);
         }
 
-        public async Task<IActionResult> ListUser(int id)
+        public async Task<IActionResult> ListUserForCreate(int id)
         {
             var user = new User();
+            return View(user);
+        }
+        public async Task<IActionResult> ListUserForUpdate(int id)
+        {
+            var user = await _userService.GetByIdAsync(id);
             return View(user);
         }
 
@@ -41,7 +46,7 @@ namespace InvoiceManagementSystem.Controllers
                 return RedirectToAction("AdminIndex");
             }
 
-            return RedirectToAction("ListUser");
+            return RedirectToAction("ListUserForCreate");
         }
         public async Task<IActionResult> RemoveUser(int id)
         {
@@ -49,10 +54,17 @@ namespace InvoiceManagementSystem.Controllers
             await _userService.RemoveAsync(user);
             return RedirectToAction("AdminIndex");
         }
-        public async Task<IActionResult> UpdateUser(User User)
+        public async Task<IActionResult> UpdateUser(User user)
         {
-            await _userService.UpdateAsync(User);
-            return View();
+            var _user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == user.Id);
+            user.Password = _user.Password;
+            ModelState.Remove("Password");
+            if (ModelState.IsValid)
+            {
+                await _userService.UpdateAsync(user);
+                return RedirectToAction("AdminIndex");
+            }
+            return RedirectToAction("ListUserForUpdate");
         }
     }
 }

@@ -1,22 +1,38 @@
-﻿using InvoiceManagementSystem.Models.Entities;
+﻿using InvoiceManagementSystem.Models.Context;
+using InvoiceManagementSystem.Models.Entities;
+using InvoiceManagementSystem.Services;
 using InvoiceManagementSystem.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace InvoiceManagementSystem.Controllers
 {
     public class BillController : Controller
     {
         private readonly IService<Bill> _billService;
+        private readonly ApplicationDbContext _context;
 
-        public BillController(IService<Bill> billService)
+        public BillController(IService<Bill> billService, ApplicationDbContext context)
         {
             _billService = billService;
+            _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> ListBillForCreate(int id)
         {
-            var bills = await _billService.GetAllAsync();
+            var bills = new Bill();
             return View(bills);
+        }
+
+        public async Task<IActionResult> CreateBill(Bill bill)
+        {
+            bill.User = await _context.Users.FirstOrDefaultAsync(u => u.Id == bill.UserId);
+            if (ModelState.IsValid)
+            {
+                await _billService.CreateAsync(bill);
+                return RedirectToAction("AdminIndex", "Admin");
+            }
+            return RedirectToAction("ListBillForCreate");
         }
     }
 }

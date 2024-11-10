@@ -1,6 +1,6 @@
 ﻿@model InvoiceManagementSystem.Models.Entities.User
 
-<h2>Login</h2>
+<h2>Giriş Sayfası</h2>
 
 @if (ViewBag.ShowError == true)
 {
@@ -10,12 +10,12 @@
 <form asp-action="UserLogin" method="post">
     <div class="form-floating mb-3">
         <input asp-for="Email" class="form-control" id="floatingInput" placeholder="name@example.com" />
-        <label for="floatingInput">Email address</label>
+        <label for="floatingInput">Email adresi</label>
     </div>
     <div class="form-floating">
         <input asp-for="Password" type="password" class="form-control" id="floatingPassword" placeholder="Password" />
-        <label for="floatingPassword">Password</label>
+        <label for="floatingPassword">Şifre</label>
     </div>
-    <button type="submit">Login</button>
+    <button type="submit">Gir</button>
 </form>
 

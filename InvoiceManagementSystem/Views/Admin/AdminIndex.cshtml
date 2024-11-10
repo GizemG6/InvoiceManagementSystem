@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<InvoiceManagementSystem.Models.Entities.User>
 
 @{
-    ViewBag.Title = "Kullanıcı Listesi";
+    ViewBag.Title = "Admin Sayfası";
 }
 <div class="accordion accordion-flush" id="accordionFlushExample">
     <div class="accordion-item">
@@ -96,11 +96,47 @@
     <div class="accordion-item">
         <h2 class="accordion-header">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                Accordion Item #3
+                Fatura Listesi
             </button>
         </h2>
         <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+            <div class="accordion-body">
+                <h2>Fatura Listesi</h2>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Fatura Tipi</th>
+                            <th>Fatura Tutarı</th>
+                            <th>Fatura Tarihi</th>
+                            <th>Fatura Açıklama</th>
+                            <th>Fatura Durumu</th>
+                            <th>Fatura Sahibi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>@string.Join(", ", user.Bills.Select(a => a.BillType))</td>
+                                <td>@string.Join(", ", user.Bills.Select(a => a.Amount))</td>
+                                <td>@string.Join(", ", user.Bills.Select(a => a.BillDate))</td>
+                                <td>@string.Join(", ", user.Bills.Select(a => a.Description))</td>
+                                <td>@string.Join(", ", user.Bills.Select(a => a.IsPaid))</td>
+                                <td>@string.Join(", ", user.Bills.Select(a => a.User.Id))</td>
+                                <td>
+                                    <a asp-controller="Bill" asp-action="ListBillForUpdate" asp-route-id="@string.Join(", ", user.Bills.Select(a => a.Id))">Düzenle</a> |
+                                    <form asp-controller="Bill" asp-action="RemoveBill" asp-route-id="@string.Join(", ", user.Bills.Select(a => a.Id))" method="post" style="display:inline;">
+                                        <button type="submit" onclick="return confirm('Bu faturayı silmek istediğinize emin misiniz?');">Sil</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <a asp-controller="Bill" asp-action="ListBillForCreate" class="btn btn-primary">Fatura Ekle</a>
+            </div>
+        </div>
         </div>
     </div>
-</div>

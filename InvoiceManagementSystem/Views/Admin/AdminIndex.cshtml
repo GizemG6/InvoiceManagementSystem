@@ -3,73 +3,104 @@
 @{
     ViewBag.Title = "Kullanıcı Listesi";
 }
+<div class="accordion accordion-flush" id="accordionFlushExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                Kullanıcı Listesi
+            </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                <h2>Kullanıcı Listesi</h2>
 
-<h2>Kullanıcı Listesi</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Ad</th>
+                            <th>Soyad</th>
+                            <th>Email</th>
+                            <th>Telefon</th>
+                            <th>Rol</th>
+                            <th>Aksiyonlar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>@user.FirstName</td>
+                                <td>@user.LastName</td>
+                                <td>@user.Email</td>
+                                <td>@user.Phone</td>
+                                <td>@user.Role</td>
+                                <td>
+                                    <a asp-action="ListUserForUpdate" asp-route-id="@user.Id">Düzenle</a> |
+                                    <form asp-action="RemoveUser" asp-route-id="@user.Id" method="post" style="display:inline;">
+                                        <button type="submit" onclick="return confirm('Bu kullanıcıyı silmek istediğinize emin misiniz?');">Sil</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Ad</th>
-            <th>Soyad</th>
-            <th>Email</th>
-            <th>Telefon</th>
-            <th>Rol</th>
-            <th>Aksiyonlar</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model)
-        {
-            <tr>
-                <td>@user.FirstName</td>
-                <td>@user.LastName</td>
-                <td>@user.Email</td>
-                <td>@user.Phone</td>
-                <td>@user.Role</td>
-                <td>
-                    <a asp-action="ListUserForUpdate" asp-route-id="@user.Id">Düzenle</a> |
-                    <form asp-action="RemoveUser" asp-route-id="@user.Id" method="post" style="display:inline;">
-                        <button type="submit" onclick="return confirm('Bu kullanıcıyı silmek istediğinize emin misiniz?');">Sil</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                <a asp-action="ListUserForCreate" class="btn btn-primary">Yeni Kullanıcı Oluştur</a>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                Apartman Listesi
+            </button>
+        </h2>
+        <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                <h2>Apartman Listesi</h2>
 
-<a asp-action="ListUserForCreate" class="btn btn-primary">Yeni Kullanıcı Oluştur</a>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Apartmant Numarası</th>
+                            <th>Kat</th>
+                            <th>Blok</th>
+                            <th>Durumu</th>
+                            <th>Sahibi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>@string.Join(", ", user.Apartments.Select(a => a.ApartmentNo))</td>
+                                <td>@string.Join(", ", user.Apartments.Select(a => a.Floor))</td>
+                                <td>@string.Join(", ", user.Apartments.Select(a => a.Block))</td>
+                                <td>@string.Join(", ", user.Apartments.Select(a => a.Status))</td>
+                                <td>@string.Join(", ", user.Apartments.Select(a => a.User.FirstName))</td>
+                                <td>
+                                    <a asp-controller="Apartment" asp-action="ListApartmentForUpdate" asp-route-id="@string.Join(", ", user.Apartments.Select(a => a.Id))">Düzenle</a> |
+                                    <form asp-controller="Apartment" asp-action="RemoveApartment" asp-route-id="@string.Join(", ", user.Apartments.Select(a => a.Id))" method="post" style="display:inline;">
+                                        <button type="submit" onclick="return confirm('Bu apartmanı silmek istediğinize emin misiniz?');">Sil</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
 
-
-<h2>Apartman Listesi</h2>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Apartmant Numarası</th>
-            <th>Kat</th>
-            <th>Blok</th>
-            <th>Durumu</th>
-            <th>Sahibi</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model)
-        {
-            <tr>
-                <td>@string.Join(", ", user.Apartments.Select(a => a.ApartmentNo))</td>
-                <td>@string.Join(", ", user.Apartments.Select(a => a.Floor))</td>
-                <td>@string.Join(", ", user.Apartments.Select(a => a.Block))</td>
-                <td>@string.Join(", ", user.Apartments.Select(a => a.Status))</td>
-                <td>@string.Join(", ", user.Apartments.Select(a => a.User.FirstName))</td>
-                <td>
-                        <a asp-controller="Apartment" asp-action="ListApartmentForUpdate" asp-route-id="@string.Join(", ", user.Apartments.Select(a => a.Id))">Düzenle</a> |
-                    <form asp-controller="Apartment" asp-action="RemoveApartment" asp-route-id="@string.Join(", ", user.Apartments.Select(a => a.Id))" method="post" style="display:inline;">
-                        <button type="submit" onclick="return confirm('Bu apartmanı silmek istediğinize emin misiniz?');">Sil</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<a asp-controller="Apartment" asp-action="ListApartmentForCreate" class="btn btn-primary">Apartman Ekle</a>
+                <a asp-controller="Apartment" asp-action="ListApartmentForCreate" class="btn btn-primary">Apartman Ekle</a>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                Accordion Item #3
+            </button>
+        </h2>
+        <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+        </div>
+    </div>
+</div>

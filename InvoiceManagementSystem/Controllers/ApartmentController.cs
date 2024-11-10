@@ -19,16 +19,16 @@ namespace InvoiceManagementSystem.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> ListApartmentForCreate()
+        public async Task<IActionResult> ListApartmentForCreate(int id)
         {
             var apartments = new Apartment();
             return View(apartments);
         }
 
-        public async Task<IActionResult> ListApartmentForUpdate()
+        public async Task<IActionResult> ListApartmentForUpdate(int id)
         {
-            var apartments = new Apartment();
-            return View(apartments);
+            var apartment = await _apartmentService.GetByIdAsync(id);
+            return View(apartment);
         }
 
         public async Task<IActionResult> CreateApartment(Apartment apartment)
@@ -51,9 +51,17 @@ namespace InvoiceManagementSystem.Controllers
         
         public async Task<IActionResult> UpdateApartment(Apartment apartment)
         {
+            var _apartment = await _apartmentService.GetByIdAsync(apartment.Id);
+
             if (ModelState.IsValid)
             {
-                await _apartmentService.UpdateAsync(apartment);
+                _apartment.ApartmentNo = apartment.ApartmentNo;
+                _apartment.Floor = apartment.Floor;
+                _apartment.Block = apartment.Block;
+                _apartment.Type = apartment.Type;
+                _apartment.Status = apartment.Status;
+                _apartment.UserId = apartment.UserId;
+                await _apartmentService.UpdateAsync(_apartment);
                 return RedirectToAction("AdminIndex", "Admin");
             }
             return RedirectToAction("ListApartmentForUpdate");

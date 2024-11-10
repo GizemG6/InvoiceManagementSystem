@@ -56,7 +56,7 @@ namespace InvoiceManagementSystem.Controllers
                 await _apartmentService.UpdateAsync(apartment);
                 return RedirectToAction("AdminIndex", "Admin");
             }
-            return RedirectToAction("ListApartmentForCreate");
+            return RedirectToAction("ListApartmentForUpdate");
         }
     }
 }

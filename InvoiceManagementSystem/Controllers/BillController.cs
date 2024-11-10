@@ -1,4 +1,6 @@
-﻿using InvoiceManagementSystem.Models.Context;
+﻿using InvoiceManagementSystem.Enums.EnumHelper;
+using InvoiceManagementSystem.Enums;
+using InvoiceManagementSystem.Models.Context;
 using InvoiceManagementSystem.Models.Entities;
 using InvoiceManagementSystem.Services;
 using InvoiceManagementSystem.Services.Interfaces;
@@ -21,6 +23,7 @@ namespace InvoiceManagementSystem.Controllers
         public async Task<IActionResult> ListBillForCreate(int id)
         {
             var bills = new Bill();
+            ViewBag.BillTypes = EnumHelper.GetEnumSelectList<BillType>();
             return View(bills);
         }
 

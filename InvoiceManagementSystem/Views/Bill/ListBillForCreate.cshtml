@@ -16,8 +16,14 @@
         </div>
     }
     <div class="form-group">
-        <label asp-for="BillType"></label>
-        <input asp-for="BillType" class="form-control" />
+        <label asp-for="BillType">Fatura Tipi</label>
+        <select id="BillType" name="BillType" class="form-control">
+            <option value="">Seçiniz</option>
+            @foreach (var item in ViewBag.BillTypes as List<SelectListItem>)
+            {
+                <option value="@item.Value">@item.Text</option>
+            }
+        </select>
         <span asp-validation-for="BillType" class="text-danger"></span>
     </div>
 

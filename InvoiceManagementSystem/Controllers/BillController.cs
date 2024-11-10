@@ -31,6 +31,7 @@ namespace InvoiceManagementSystem.Controllers
         {
             bill.User = await _context.Users.FirstOrDefaultAsync(u => u.Id == bill.UserId);
             ModelState.Remove("User");
+
             if (ModelState.IsValid)
             {
                 await _billService.CreateAsync(bill);

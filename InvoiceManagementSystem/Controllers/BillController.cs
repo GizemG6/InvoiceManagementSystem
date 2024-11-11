@@ -27,6 +27,12 @@ namespace InvoiceManagementSystem.Controllers
             return View(bills);
         }
 
+        public async Task<IActionResult> ListBillForUpdate(int id)
+        {
+            var bill = await _billService.GetByIdAsync(id);
+            return View(bill);
+        }
+
         public async Task<IActionResult> CreateBill(Bill bill)
         {
             bill.User = await _context.Users.FirstOrDefaultAsync(u => u.Id == bill.UserId);

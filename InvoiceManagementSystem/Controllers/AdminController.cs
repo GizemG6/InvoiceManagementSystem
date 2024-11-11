@@ -21,7 +21,10 @@ namespace InvoiceManagementSystem.Controllers
         }
         public async Task<IActionResult> AdminIndex()
         {
-            var users = await _context.Users.Include(u => u.Apartments).ToListAsync();
+            var users = await _context.Users
+                        .Include(u => u.Apartments) 
+                        .Include(u => u.Bills) 
+                        .ToListAsync();
             return View(users);
         }
 

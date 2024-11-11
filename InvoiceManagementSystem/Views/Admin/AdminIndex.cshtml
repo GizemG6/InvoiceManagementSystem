@@ -123,7 +123,7 @@
                                 <td>@string.Join(", ", user.Bills.Select(a => a.BillDate))</td>
                                 <td>@string.Join(", ", user.Bills.Select(a => a.Description))</td>
                                 <td>@string.Join(", ", user.Bills.Select(a => a.IsPaid))</td>
-                                <td>@string.Join(", ", user.Bills.Select(a => a.User.Id))</td>
+                                <td>@string.Join(", ", user.Bills.Select(a => a.User.FirstName))</td>
                                 <td>
                                     <a asp-controller="Bill" asp-action="ListBillForUpdate" asp-route-id="@string.Join(", ", user.Bills.Select(a => a.Id))">Düzenle</a> |
                                     <form asp-controller="Bill" asp-action="RemoveBill" asp-route-id="@string.Join(", ", user.Bills.Select(a => a.Id))" method="post" style="display:inline;">

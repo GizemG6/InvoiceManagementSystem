@@ -29,8 +29,8 @@ namespace InvoiceManagementSystem.Controllers
 
         public async Task<IActionResult> CreateBill(Bill bill)
         {
-            bill.User = await _context.Users.FirstOrDefaultAsync(u => u.Id == bill.UserId);
             ModelState.Remove("User");
+            //bill.User = await _context.Users.FirstOrDefaultAsync(u => u.Id == bill.UserId);
 
             if (ModelState.IsValid)
             {
@@ -38,6 +38,13 @@ namespace InvoiceManagementSystem.Controllers
                 return RedirectToAction("AdminIndex", "Admin");
             }
             return RedirectToAction("ListBillForCreate");
+        }
+
+        public async Task<IActionResult> RemoveBill(int id)
+        {
+            var bill = await _billService.GetByIdAsync(id);
+            await _billService.RemoveAsync(bill);
+            return RedirectToAction("AdminIndex", "Admin");
         }
     }
 }

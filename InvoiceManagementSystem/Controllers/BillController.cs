@@ -29,8 +29,8 @@ namespace InvoiceManagementSystem.Controllers
 
         public async Task<IActionResult> CreateBill(Bill bill)
         {
+            bill.User = await _context.Users.FirstOrDefaultAsync(u => u.Id == bill.UserId);
             ModelState.Remove("User");
-            //bill.User = await _context.Users.FirstOrDefaultAsync(u => u.Id == bill.UserId);
 
             if (ModelState.IsValid)
             {

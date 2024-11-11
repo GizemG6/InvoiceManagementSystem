@@ -117,20 +117,23 @@
                     <tbody>
                         @foreach (var user in Model)
                         {
-                            <tr>
-                                <td>@string.Join(", ", user.Bills.Select(a => a.BillType))</td>
-                                <td>@string.Join(", ", user.Bills.Select(a => a.Amount))</td>
-                                <td>@string.Join(", ", user.Bills.Select(a => a.BillDate))</td>
-                                <td>@string.Join(", ", user.Bills.Select(a => a.Description))</td>
-                                <td>@string.Join(", ", user.Bills.Select(a => a.IsPaid))</td>
-                                <td>@string.Join(", ", user.Bills.Select(a => a.User.FirstName))</td>
-                                <td>
-                                    <a asp-controller="Bill" asp-action="ListBillForUpdate" asp-route-id="@string.Join(", ", user.Bills.Select(a => a.Id))">Düzenle</a> |
-                                    <form asp-controller="Bill" asp-action="RemoveBill" asp-route-id="@string.Join(", ", user.Bills.Select(a => a.Id))" method="post" style="display:inline;">
-                                        <button type="submit" onclick="return confirm('Bu faturayı silmek istediğinize emin misiniz?');">Sil</button>
-                                    </form>
-                                </td>
-                            </tr>
+                            foreach (var bill in user.Bills)
+                            {
+                                <tr>
+                                    <td>@bill.BillType</td>
+                                    <td>@bill.Amount</td>
+                                    <td>@bill.BillDate.ToString("dd/MM/yyyy HH:mm")</td>
+                                    <td>@bill.Description</td>
+                                    <td>@(bill.IsPaid ? "Ödendi" : "Ödenmedi")</td>
+                                    <td>@bill.User.FirstName</td>
+                                    <td>
+                                        <a asp-controller="Bill" asp-action="ListBillForUpdate" asp-route-id="@bill.Id">Düzenle</a> |
+                                        <form asp-controller="Bill" asp-action="RemoveBill" asp-route-id="@bill.Id" method="post" style="display:inline;">
+                                            <button type="submit" onclick="return confirm('Bu faturayı silmek istediğinize emin misiniz?');">Sil</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
                         }
                     </tbody>
                 </table>

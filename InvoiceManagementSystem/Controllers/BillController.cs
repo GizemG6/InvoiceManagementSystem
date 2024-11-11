@@ -46,5 +46,22 @@ namespace InvoiceManagementSystem.Controllers
             await _billService.RemoveAsync(bill);
             return RedirectToAction("AdminIndex", "Admin");
         }
+
+        public async Task<IActionResult> UpdateBill(Bill bill)
+        {
+            var _bill = await _billService.GetByIdAsync(bill.Id);
+            if (ModelState.IsValid)
+            {
+                _bill.BillType = bill.BillType;
+                _bill.Amount = bill.Amount;
+                _bill.BillDate = bill.BillDate;
+                _bill.Description = bill.Description;
+                _bill.IsPaid = bill.IsPaid;
+                _bill.UserId = bill.UserId;
+                await _billService.UpdateAsync(_bill);
+                return RedirectToAction("AdminIndex", "Admin");
+            }
+            return RedirectToAction("ListBillForUpdate");
+        }
     }
 }

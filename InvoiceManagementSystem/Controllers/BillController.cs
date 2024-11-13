@@ -6,6 +6,7 @@ using InvoiceManagementSystem.Services;
 using InvoiceManagementSystem.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace InvoiceManagementSystem.Controllers
 {
@@ -29,7 +30,18 @@ namespace InvoiceManagementSystem.Controllers
 
         public async Task<IActionResult> ListBillForUpdate(int id)
         {
-            var bill = await _billService.GetByIdAsync(id);
+            var bill = await _context.Bills
+                         .Include(b => b.User) 
+                         .FirstOrDefaultAsync(b => b.Id == id);
+
+            ViewBag.BillTypes = Enum.GetValues(typeof(BillType))
+                        .Cast<BillType>()
+                        .Select(b => new SelectListItem
+                        {
+                            Text = b.ToString(),
+                            Value = ((int)b).ToString()
+                        }).ToList();
+
             return View(bill);
         }
 
@@ -55,16 +67,12 @@ namespace InvoiceManagementSystem.Controllers
 
         public async Task<IActionResult> UpdateBill(Bill bill)
         {
+            //var _bill = await _context.Bills.AsNoTracking().FirstOrDefaultAsync(b => b.BillType == bill.BillType);
             var _bill = await _billService.GetByIdAsync(bill.Id);
+            ModelState.Remove("User");
             if (ModelState.IsValid)
             {
-                _bill.BillType = bill.BillType;
-                _bill.Amount = bill.Amount;
-                _bill.BillDate = bill.BillDate;
-                _bill.Description = bill.Description;
-                _bill.IsPaid = bill.IsPaid;
-                _bill.UserId = bill.UserId;
-                await _billService.UpdateAsync(_bill);
+                await _billService.UpdateAsync(bill);
                 return RedirectToAction("AdminIndex", "Admin");
             }
             return RedirectToAction("ListBillForUpdate");

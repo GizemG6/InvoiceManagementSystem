@@ -27,7 +27,9 @@ namespace InvoiceManagementSystem.Services
 
         public async Task<Bill?> GetByIdAsync(int id)
         {
-            return await _context.Bills.FindAsync(id);
+            return await _context.Bills
+                         .Include(b => b.User) 
+                         .FirstOrDefaultAsync(b => b.Id == id);
         }
 
         public async Task RemoveAsync(Bill bill)

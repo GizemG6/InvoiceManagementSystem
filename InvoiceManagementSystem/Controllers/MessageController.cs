@@ -24,16 +24,11 @@ namespace InvoiceManagementSystem.Controllers
         }
         public async Task<IActionResult> SendMessageToAdmin(int RecipientId, string Title, string Comment)
         {
-            var userId = HttpContext.Session.GetInt32("UserId");
-            if (userId == null)
-            {
-                TempData["ErrorMessage"] = "Giriş yapmadan mesaj gönderemezsiniz.";
-                return RedirectToAction("UserIndex", "User");
-            }
+            var user = await _context.Users.FindAsync(RecipientId);
 
             var message = new Message
             {
-                SenderId = userId.Value,
+                SenderId = user.Id,
                 RecipientId = RecipientId, 
                 Title = Title,
                 Comment = Comment,
@@ -45,7 +40,6 @@ namespace InvoiceManagementSystem.Controllers
             _context.Messages.Add(message);
             await _context.SaveChangesAsync();
 
-            TempData["SuccessMessage"] = "Mesaj başarıyla seçilen admin'e gönderildi.";
             return RedirectToAction("UserIndex", "User");
         }
 

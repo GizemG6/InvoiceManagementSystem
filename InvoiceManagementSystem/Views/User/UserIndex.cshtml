@@ -93,6 +93,10 @@
                         <label for="recipientAdmin">Gönderilecek Admin</label>
                         <select class="form-control" id="recipientAdmin" name="RecipientId" required>
                             <option value="">Bir admin seçin</option>
+                            @foreach (var user in ViewBag.Users)
+                            {
+                                <option value="@user.Value">@user.Text</option>
+                            }
                         </select>
                     </div>
 

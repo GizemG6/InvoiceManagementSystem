@@ -19,7 +19,10 @@ namespace InvoiceManagementSystem.Controllers
 
         public async Task<IActionResult> UserIndex(LoginUser loginUser)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == loginUser.Email && u.Password == loginUser.Password);
+            var user = await _context.Users
+                .Include(u => u.Bills)
+                .FirstOrDefaultAsync(u => u.Email == loginUser.Email && u.Password == loginUser.Password);
+
             return View(user);
         }
 

@@ -46,11 +46,25 @@
     <div class="accordion-item">
         <h2 class="accordion-header">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                Accordion Item #2
+                Fatura İşlemleri
             </button>
         </h2>
         <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+            <div class="accordion-body">
+                <h1>Faturalar</h1>
+                <ul>
+                    @foreach (var bill in Model.Bills)
+                    {
+                        <li>
+                            <strong>Fatura Tipi:</strong> @bill.BillType <br />
+                            <strong>Tutar:</strong> @bill.Amount <br />
+                            <strong>Fatura Tarihi:</strong> @bill.BillDate.ToShortDateString() <br />
+                            <strong>Açıklama:</strong> @bill.Description <br />
+                            <strong>Ödeme Durumu:</strong> @(bill.IsPaid ? "Ödendi" : "Ödenmedi") <br />
+                        </li>
+                    }
+                </ul>
+            </div>
         </div>
     </div>
     <div class="accordion-item">

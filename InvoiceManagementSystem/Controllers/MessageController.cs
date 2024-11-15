@@ -3,6 +3,7 @@ using InvoiceManagementSystem.Models.Entities;
 using InvoiceManagementSystem.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace InvoiceManagementSystem.Controllers
 {
@@ -24,11 +25,15 @@ namespace InvoiceManagementSystem.Controllers
         }
         public async Task<IActionResult> SendMessageToAdmin(int RecipientId, string Title, string Comment)
         {
-            var user = await _context.Users.FindAsync(RecipientId);
+            //var currentUserEmail = User.Identity?.Name;
+            //var currentUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == currentUserEmail);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var currentUser = await _context.Users.FindAsync(userId);
+
 
             var message = new Message
             {
-                SenderId = user.Id,
+                UserId = currentUser.Id,
                 RecipientId = RecipientId, 
                 Title = Title,
                 Comment = Comment,

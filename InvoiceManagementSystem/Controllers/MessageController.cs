@@ -26,7 +26,7 @@ namespace InvoiceManagementSystem.Controllers
         public async Task<IActionResult> SendMessageToAdmin(int SenderId, int RecipientId, string Title, string Comment)
         {
 
-            var message = new Message
+            var newMessage = new Message
             {
                 UserId = SenderId,
                 RecipientId = RecipientId, 
@@ -37,8 +37,10 @@ namespace InvoiceManagementSystem.Controllers
                 IsDelete = false
             };
 
-            _context.Messages.Add(message);
+            _context.Messages.Add(newMessage);
             await _context.SaveChangesAsync();
+
+            TempData["UserId"] = SenderId;
 
             return RedirectToAction("UserIndex", "User");
         }

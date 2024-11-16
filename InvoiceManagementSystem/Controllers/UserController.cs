@@ -20,9 +20,22 @@ namespace InvoiceManagementSystem.Controllers
 
         public async Task<IActionResult> UserIndex(LoginUser loginUser)
         {
-            var user = await _context.Users
-                .Include(u => u.Bills)
-                .FirstOrDefaultAsync(u => u.Email == loginUser.Email && u.Password == loginUser.Password);
+            User user = null;
+
+            if (TempData["UserId"] != null)
+            {
+                int userId = Convert.ToInt32(TempData["UserId"]);
+                user = await _context.Users
+                    .Include(u => u.Bills)
+                    .FirstOrDefaultAsync(u => u.Id == userId);
+            }
+
+            else if (loginUser != null && !string.IsNullOrEmpty(loginUser.Email))
+            {
+                user = await _context.Users
+                    .Include(u => u.Bills)
+                    .FirstOrDefaultAsync(u => u.Email == loginUser.Email && u.Password == loginUser.Password);
+            }
 
             ViewBag.Users = await _context.Users
                             .Where(u => !u.IsDelete)
@@ -40,5 +53,7 @@ namespace InvoiceManagementSystem.Controllers
             var user = await _userService.GetByIdAsync(id);
             return View(user);
         }
+
+
     }
 }

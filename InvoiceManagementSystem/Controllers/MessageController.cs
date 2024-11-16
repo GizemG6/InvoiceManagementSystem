@@ -23,17 +23,12 @@ namespace InvoiceManagementSystem.Controllers
             var messages = await _messageService.GetAllAsync();
             return View(messages);
         }
-        public async Task<IActionResult> SendMessageToAdmin(int RecipientId, string Title, string Comment)
+        public async Task<IActionResult> SendMessageToAdmin(int SenderId, int RecipientId, string Title, string Comment)
         {
-            //var currentUserEmail = User.Identity?.Name;
-            //var currentUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == currentUserEmail);
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var currentUser = await _context.Users.FindAsync(userId);
-
 
             var message = new Message
             {
-                UserId = currentUser.Id,
+                UserId = SenderId,
                 RecipientId = RecipientId, 
                 Title = Title,
                 Comment = Comment,

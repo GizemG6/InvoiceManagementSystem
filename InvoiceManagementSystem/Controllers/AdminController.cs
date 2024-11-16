@@ -1,4 +1,5 @@
 ﻿using InvoiceManagementSystem.Common;
+using InvoiceManagementSystem.Enums;
 using InvoiceManagementSystem.Models.Context;
 using InvoiceManagementSystem.Models.Entities;
 using InvoiceManagementSystem.Services;
@@ -23,8 +24,14 @@ namespace InvoiceManagementSystem.Controllers
         {
             var users = await _context.Users
                         .Include(u => u.Apartments) 
-                        .Include(u => u.Bills) 
+                        .Include(u => u.Bills)
                         .ToListAsync();
+
+            var adminUser = users.FirstOrDefault(u => u.Role == Role.Admin);
+            if (users != null)
+            {
+                ViewBag.SenderId = adminUser.Id;
+            }
             return View(users);
         }
 

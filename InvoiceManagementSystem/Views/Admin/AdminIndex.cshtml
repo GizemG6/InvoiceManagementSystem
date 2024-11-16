@@ -142,4 +142,43 @@
             </div>
         </div>
         </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                Mesaj Gönder
+            </button>
+        </h2>
+        <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                <h2>Mesaj Gönder</h2>
+
+                <form asp-action="SendMessageToUser" asp-controller="Message" method="post">
+                    <div class="form-group mb-3">
+                        <label for="recipientUser">Gönderilecek Kullanıcı</label>
+                        <select class="form-control" id="recipientUser" name="RecipientId" required>
+                            <option value="">Bir kullanıcı seçin</option>
+                            @foreach (var user in Model)
+                            {
+                                <option value="@user.Id">@user.FirstName @user.LastName</option>
+                            }
+                        </select>
+                    </div>
+
+                    <input type="hidden" name="SenderId" value="@ViewBag.SenderId" />
+
+                    <div class="form-group mb-3">
+                        <label for="messageTitle">Mesaj Başlığı</label>
+                        <input type="text" class="form-control" id="messageTitle" name="Title" placeholder="Başlık girin" required />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="messageComment">Mesaj İçeriği</label>
+                        <textarea class="form-control" id="messageComment" name="Comment" rows="3" placeholder="Mesajınızı girin" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Gönder</button>
+                </form>
+            </div>
+        </div>
+    </div>
     </div>

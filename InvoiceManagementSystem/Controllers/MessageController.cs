@@ -45,5 +45,27 @@ namespace InvoiceManagementSystem.Controllers
             return RedirectToAction("UserIndex", "User");
         }
 
+        public async Task<IActionResult> SendMessageToUser(int SenderId, int RecipientId, string Title, string Comment)
+        {
+
+            var newMessage = new Message
+            {
+                UserId = SenderId,
+                RecipientId = RecipientId,
+                Title = Title,
+                Comment = Comment,
+                Status = false,
+                SendDate = DateTime.Now,
+                IsDelete = false
+            };
+
+            _context.Messages.Add(newMessage);
+            await _context.SaveChangesAsync();
+
+            TempData["UserId"] = SenderId;
+
+            return RedirectToAction("AdminIndex", "Admin");
+        }
+
     }
 }

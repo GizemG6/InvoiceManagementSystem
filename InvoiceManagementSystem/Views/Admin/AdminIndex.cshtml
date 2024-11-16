@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Admin Sayfası";
+    var messages = ViewBag.Messages as List<InvoiceManagementSystem.Models.Entities.Message>;
 }
 <div class="accordion accordion-flush" id="accordionFlushExample">
     <div class="accordion-item">
@@ -178,6 +179,36 @@
 
                     <button type="submit" class="btn btn-primary">Gönder</button>
                 </form>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                Mesajların
+            </button>
+        </h2>
+        <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                <h2>Mesajların</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Başlık</th>
+                            <th>Gönderen</th>
+                            <th>Mesaj Tarihi</th>
+                            <th>Durum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var message in messages)
+                        {
+                            <tr>
+                                <td>@message.Title</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -14,11 +14,13 @@ namespace InvoiceManagementSystem.Controllers
     {
         private readonly IService<User> _userService;
         private readonly ApplicationDbContext _context;
+        private readonly MessageService _messageService;
 
-        public AdminController(IService<User> userService, ApplicationDbContext context)
+        public AdminController(IService<User> userService, ApplicationDbContext context, MessageService messageService)
         {
             _userService = userService;
             _context = context;
+            _messageService = messageService;
         }
         public async Task<IActionResult> AdminIndex()
         {
@@ -28,9 +30,14 @@ namespace InvoiceManagementSystem.Controllers
                         .ToListAsync();
 
             var adminUser = users.FirstOrDefault(u => u.Role == Role.Admin);
+
             if (users != null)
             {
                 ViewBag.SenderId = adminUser.Id;
+                var messages = await _messageService.GetAllAsync();
+
+                // Pass messages to the view using ViewBag
+                ViewBag.Messages = messages;
             }
             return View(users);
         }

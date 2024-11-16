@@ -23,7 +23,7 @@ namespace InvoiceManagementSystem
             builder.Services.AddScoped<IService<User>, UserService>();
             builder.Services.AddScoped<IService<Apartment>, ApartmentService>();
             builder.Services.AddScoped<IService<Bill>, BillService>();
-            builder.Services.AddScoped<IService<Message>, MessageService>();
+            builder.Services.AddScoped<MessageService>();
 
             // Add SqlServer
             builder.Services.AddDbContext<ApplicationDbContext>(options => 

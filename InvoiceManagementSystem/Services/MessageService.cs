@@ -42,5 +42,14 @@ namespace InvoiceManagementSystem.Services
             _context.Messages.Update(message);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<List<Message>> ListMessage(int SenderId)
+        {
+            var messages = await _context.Messages
+                           .Where(m => m.RecipientId == SenderId && !m.IsDelete)
+                           .Include(m => m.User)
+                           .ToListAsync();
+            return messages;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using InvoiceManagementSystem.Models.Context;
 using InvoiceManagementSystem.Models.Entities;
+using InvoiceManagementSystem.Services;
 using InvoiceManagementSystem.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,11 +12,13 @@ namespace InvoiceManagementSystem.Controllers
     {
         private readonly IService<User> _userService;
         private readonly ApplicationDbContext _context;
+        private readonly MessageService _messageService;
 
-        public UserController(IService<User> userService, ApplicationDbContext context)
+        public UserController(IService<User> userService, ApplicationDbContext context, MessageService messageService)
         {
             _userService = userService;
             _context = context;
+            _messageService = messageService;
         }
 
         public async Task<IActionResult> UserIndex(LoginUser loginUser)
@@ -36,6 +39,18 @@ namespace InvoiceManagementSystem.Controllers
                     .Include(u => u.Bills)
                     .FirstOrDefaultAsync(u => u.Email == loginUser.Email && u.Password == loginUser.Password);
             }
+
+            var messages = await _messageService.GetAllAsync();
+
+            ViewBag.Messages = messages
+                .Where(m => !m.IsDelete) 
+                .Select(m => new
+                {
+                    Title = m.Title,
+                    Comment = m.Comment,
+                    SenderName = m.User != null ? m.User.FirstName + " " + m.User.LastName : "Bilinmiyor",
+                    SendDate = m.SendDate.ToString("dd/MM/yyyy HH:mm")
+                }).ToList();
 
             ViewBag.Users = await _context.Users
                             .Where(u => !u.IsDelete)

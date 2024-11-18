@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Admin Sayfası";
-    var messages = ViewBag.Messages as List<InvoiceManagementSystem.Models.Entities.Message>;
+    //var messages = ViewBag.Messages as List<InvoiceManagementSystem.Models.Entities.Message>;
 }
 <div class="accordion accordion-flush" id="accordionFlushExample">
     <div class="accordion-item">
@@ -201,13 +201,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var message in messages)
+                        @foreach (var message in ViewBag.Messages)
                         {
                             <tr>
                                 <td>@message.Title</td>
                                 <td>@message.Comment</td>
-                                <td>@message.User.FirstName @message.User.LastName</td>
-                                <td>@message.SendDate</td>
+                                <td>@message.SenderName</td>
+                                <td>@message.SendDate.ToString("dd/MM/yyyy HH:mm")</td>
                             </tr>
                         }
                     </tbody>

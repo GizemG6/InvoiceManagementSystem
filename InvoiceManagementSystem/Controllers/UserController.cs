@@ -43,12 +43,15 @@ namespace InvoiceManagementSystem.Controllers
             var messages = await _messageService.GetAllAsync();
 
             ViewBag.Messages = messages
-                .Where(m => !m.IsDelete) 
+                .Where(m => !m.IsDelete && m.RecipientId == user.Id) 
                 .Select(m => new
                 {
                     Title = m.Title,
                     Comment = m.Comment,
-                    SenderName = m.User != null ? m.User.FirstName + " " + m.User.LastName : "Bilinmiyor",
+                    SenderName = _context.Users
+                                 .Where(u => u.Id == m.UserId)
+                                 .Select(u => u.FirstName + " " + u.LastName)
+                                 .FirstOrDefault() ?? "Bilinmiyor",
                     SendDate = m.SendDate.ToString("dd/MM/yyyy HH:mm")
                 }).ToList();
 

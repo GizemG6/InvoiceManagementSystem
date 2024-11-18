@@ -6,6 +6,7 @@ using InvoiceManagementSystem.Services;
 using InvoiceManagementSystem.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace InvoiceManagementSystem.Controllers
@@ -34,22 +35,23 @@ namespace InvoiceManagementSystem.Controllers
             if (users != null)
             {
                 ViewBag.RecipientId = adminUser.Id;
+                ViewBag.SenderId = adminUser.Id;
                 var messages = await _messageService.GetAllAsync();
 
                 // Pass messages to the view using ViewBag
                 var adminMessages = messages
-            .Where(m => !m.IsDelete && m.RecipientId == adminUser.Id) 
-            .Select(m => new
-            {
-                Title = m.Title,
-                Comment = m.Comment,
-                SenderName = _context.Users
-                    .Where(u => u.Id == m.UserId)
-                    .Select(u => u.FirstName + " " + u.LastName)
-                    .FirstOrDefault() ?? "Bilinmiyor",
-                SendDate = m.SendDate
-            })
-            .ToList();
+                                   .Where(m => !m.IsDelete && m.RecipientId == adminUser.Id) 
+                                   .Select(m => new
+                                   {
+                                      Title = m.Title,
+                                      Comment = m.Comment,
+                                      SenderName = _context.Users
+                                                   .Where(u => u.Id == m.UserId)
+                                                   .Select(u => u.FirstName + " " + u.LastName)
+                                                   .FirstOrDefault() ?? "Bilinmiyor",
+                                      SendDate = m.SendDate
+                                    })
+                                   .ToList();
 
                 ViewBag.Messages = adminMessages;
             }

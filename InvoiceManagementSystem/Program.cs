@@ -25,6 +25,7 @@ namespace InvoiceManagementSystem
             builder.Services.AddScoped<IService<Bill>, BillService>();
             builder.Services.AddScoped<MessageService>();
 
+
             // Add SqlServer
             builder.Services.AddDbContext<ApplicationDbContext>(options => 
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

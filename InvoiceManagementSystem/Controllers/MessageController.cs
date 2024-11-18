@@ -1,5 +1,6 @@
 ﻿using InvoiceManagementSystem.Models.Context;
 using InvoiceManagementSystem.Models.Entities;
+using InvoiceManagementSystem.Services;
 using InvoiceManagementSystem.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,16 +10,17 @@ namespace InvoiceManagementSystem.Controllers
 {
     public class MessageController : Controller
     {
-        private readonly IService<Message> _messageService;
+        private readonly MessageService _messageService;
         private readonly ApplicationDbContext _context;
 
-        public MessageController(IService<Message> messageService, ApplicationDbContext context)
+        public MessageController(MessageService messageService, ApplicationDbContext context)
         {
             _messageService = messageService;
             _context = context;
         }
-        public async Task<IActionResult> SendMessageToAdmin(int SenderId, int RecipientId, string Title, string Comment)
+        public async Task<IActionResult> SendMessage(int SenderId, int RecipientId, string Title, string Comment)
         {
+            var sender = await _context.Users.FindAsync(SenderId);
 
             var newMessage = new Message
             {
@@ -36,29 +38,14 @@ namespace InvoiceManagementSystem.Controllers
 
             TempData["UserId"] = SenderId;
 
-            return RedirectToAction("UserIndex", "User");
-        }
-
-        public async Task<IActionResult> SendMessageToUser(int SenderId, int RecipientId, string Title, string Comment)
-        {
-
-            var newMessage = new Message
+            if (sender.Role.ToString() == "Admin")
             {
-                UserId = SenderId,
-                RecipientId = RecipientId,
-                Title = Title,
-                Comment = Comment,
-                Status = false,
-                SendDate = DateTime.Now,
-                IsDelete = false
-            };
-
-            _context.Messages.Add(newMessage);
-            await _context.SaveChangesAsync();
-
-            TempData["UserId"] = SenderId;
-
-            return RedirectToAction("AdminIndex", "Admin");
+                return RedirectToAction("AdminIndex", "Admin");
+            }
+            else
+            {
+                return RedirectToAction("UserIndex", "User");
+            }
         }
 
     }

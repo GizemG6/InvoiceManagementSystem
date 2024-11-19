@@ -6,8 +6,8 @@ namespace PaymentService.Models
     public class Payment
     {
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string PaymentId { get; set; }
+        [BsonRepresentation(BsonType.String)]
+        public Guid PaymentId { get; set; }
 
         [BsonElement("BillId")]
         public string BillId { get; set; }

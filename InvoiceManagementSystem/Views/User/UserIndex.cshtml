@@ -71,6 +71,12 @@
                             {
                                 <form asp-action="MakePayment" asp-controller="Payment" method="post">
                                     <input type="hidden" name="billId" value="@bill.Id" />
+                                    <label>Kart Numarası:</label>
+                                    <input type="text" name="CardNumber" required />
+                                    <label>Kart Sahibi:</label>
+                                    <input type="text" name="CardHolder" required />
+                                    <label>Son Kullanma Tarihi:</label>
+                                    <input type="text" name="ExpiryDate" placeholder="MM/YY" required />
                                     <button type="submit" class="btn btn-primary">Ödeme Yap</button>
                                 </form>
                             }

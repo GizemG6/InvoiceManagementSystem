@@ -66,5 +66,7 @@ Kullanıcı Bilgileri
 Kullanılan Teknolojiler
 -------------------------
 •Backend/Web Projesi: ASP.NET Core 8 MVC
+
 •Veritabanı: MS SQL Server
+
 •Kredi Kartı Servisi: .NET WebAPI ve MongoDB

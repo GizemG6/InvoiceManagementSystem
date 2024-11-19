@@ -40,10 +40,10 @@ namespace InvoiceManagementSystem.Controllers
                         return RedirectToAction("UserIndex", "User", loginUser);
                     }
                 }
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                ModelState.AddModelError("Password", "Email veya şifre yanlış.");
                 ViewBag.ShowError = true;
             }
-            return View("AdminIndex", loginUser);
+            return View("Index", loginUser);
         }
 
     }

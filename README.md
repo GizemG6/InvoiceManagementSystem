@@ -86,17 +86,45 @@ Gereksinimler:
 Projesinin Çalıştırılması:
 
 •Proje dosyalarını bilgisayarınıza klonlayın:
+
 ```csharp
 git clone https://github.com/GizemG6/InvoiceManagementSystem
 ```
 •appsettings.json dosyasını açarak SQL Server bağlantı dizesini düzenleyin:
+
 ```csharp
 "ConnectionStrings": {
   "DefaultConnection": "Server=YourServerName;Database=ApartmentManagementDB;Trusted_Connection=True;"
 }
 ```
 •Terminalden proje klasörüne giderek aşağıdaki komutları çalıştırın:
+
 ```csharp
 dotnet build
 dotnet run
+```
+2-Kredi Kartı Servisinin Çalıştırılması
+
+Gereksinimler:
+
+•.NET 8 SDK
+
+•MongoDB Community Server
+
+Projesinin Çalıştırılması:
+
+•MongoDB bağlantısını ayarlamak için appsettings.json dosyasını düzenleyin:
+
+```csharp
+"MongoSettings": {
+  "ConnectionString": "mongodb://localhost:27017",
+  "DatabaseName": "CreditCardServiceDB"
+}
+```
+•Terminalden WebAPI klasörüne giderek çalıştırın:
+
+```csharp
+dotnet build
+dotnet run
+}
 ```

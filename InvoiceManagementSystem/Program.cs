@@ -25,6 +25,16 @@ namespace InvoiceManagementSystem
             builder.Services.AddScoped<IService<Bill>, BillService>();
             builder.Services.AddScoped<MessageService>();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                });
+            });
+
 
             // Add SqlServer
             builder.Services.AddDbContext<ApplicationDbContext>(options => 
@@ -48,6 +58,8 @@ namespace InvoiceManagementSystem
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseCors("AllowAll");
 
             app.UseAuthorization();
 

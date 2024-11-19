@@ -20,30 +20,39 @@ namespace PaymentService.Controllers
         [HttpPost("MakePayment")]
         public async Task<IActionResult> MakePayment([FromBody] PaymentRequest request)
         {
-           
-            bool isPaymentSuccessful = true;
 
-            
-            var payment = new Payment
+            try
             {
-                PaymentId = Guid.NewGuid(),
-                BillId = request.BillId,
-                UserId = request.UserId,
-                Amount = request.Amount,
-                PaymentDate = DateTime.UtcNow,
-                CardDetails = new CardDetails
+                bool isPaymentSuccessful = true;
+
+                var payment = new Payment
                 {
-                    CardNumber = MaskCardNumber(request.CardDetails.CardNumber),
-                    CardHolder = request.CardDetails.CardHolder,
-                    ExpiryDate = request.CardDetails.ExpiryDate
-                },
-                IsSuccessful = isPaymentSuccessful
-            };
+                    PaymentId = Guid.NewGuid(),
+                    BillId = request.BillId,
+                    UserId = request.UserId,
+                    Amount = request.Amount,
+                    PaymentDate = DateTime.UtcNow,
+                    CardDetails = new CardDetails
+                    {
+                        CardNumber = MaskCardNumber(request.CardDetails.CardNumber),
+                        CardHolder = request.CardDetails.CardHolder,
+                        ExpiryDate = request.CardDetails.ExpiryDate
+                    },
+                    IsSuccessful = isPaymentSuccessful
+                };
 
-            
-            await _mongoDbService.SavePaymentAsync(payment);
+                await _mongoDbService.SavePaymentAsync(payment);
 
-            return Ok(new { Success = isPaymentSuccessful });
+                // Log için
+                Console.WriteLine($"Payment saved: {payment.PaymentId}");
+
+                return Ok(new { Success = isPaymentSuccessful });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return StatusCode(500, new { Success = false, Message = "Internal Server Error" });
+            }
         }
 
         private string MaskCardNumber(string cardNumber)

@@ -69,16 +69,23 @@
 
                             @if (!bill.IsPaid)
                             {
-                                <form asp-action="MakePayment" asp-controller="Payment" method="post">
+                                <form id="paymentForm">
                                     <input type="hidden" name="billId" value="@bill.Id" />
+                                    <input type="hidden" name="userId" value="@bill.UserId" />
+
                                     <label>Kart Numarası:</label>
-                                    <input type="text" name="CardNumber" required />
+                                    <input type="text" id="CardNumber" required />
+
                                     <label>Kart Sahibi:</label>
-                                    <input type="text" name="CardHolder" required />
+                                    <input type="text" id="CardHolder" required />
+
                                     <label>Son Kullanma Tarihi:</label>
-                                    <input type="text" name="ExpiryDate" placeholder="MM/YY" required />
-                                    <button type="submit" class="btn btn-primary">Ödeme Yap</button>
+                                    <input type="text" id="ExpiryDate" placeholder="MM/YY" required />
+
+                                    <button type="button" id="submitPayment" class="btn btn-primary">Ödeme Yap</button>
                                 </form>
+
+                                <div id="paymentResult"></div>
                             }
                             else
                             {
@@ -163,4 +170,55 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById("submitPayment").addEventListener("click", async function () {
+            const billId = document.querySelector('input[name="billId"]').value;
+            const userId = document.querySelector('input[name="userId"]').value;
+            const cardNumber = document.getElementById("CardNumber").value;
+            const cardHolder = document.getElementById("CardHolder").value;
+            const expiryDate = document.getElementById("ExpiryDate").value;
+
+            const paymentRequest = {
+                BillId: billId,
+                UserId: userId,
+                Amount: 200, 
+                CardDetails: {
+                    CardNumber: cardNumber,
+                    CardHolder: cardHolder,
+                    ExpiryDate: expiryDate
+                }
+            };
+
+            try {
+                const response = await fetch('https://localhost:7081/api/Payment/MakePayment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(paymentRequest)
+                });
+
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    if (result.success) {
+                        document.getElementById("paymentResult").innerHTML =
+                            "<p>Ödeme başarılı!</p>";
+                    } else {
+                        document.getElementById("paymentResult").innerHTML =
+                            `<p>Ödeme başarısız. Mesaj: ${result.message || 'Bilinmiyor'}</p>`;
+                    }
+                } else {
+                    
+                    document.getElementById("paymentResult").innerHTML =
+                        `<p>Bir hata oluştu: ${response.statusText}</p>`;
+                }
+            } catch (error) {
+                document.getElementById("paymentResult").innerHTML =
+                    `<p>Bir hata oluştu: ${error.message}</p>`;
+            }
+        });
+    </script>
+
 </div>

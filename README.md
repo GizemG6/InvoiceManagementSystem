@@ -126,3 +126,8 @@ dotnet build
 dotnet run
 }
 ```
+Veri Tabanı Şeması
+-------------------------
+1-SQL SERVER
+![Ekran görüntüsü 2024-11-19 224306](https://github.com/user-attachments/assets/a3184e7d-2798-4001-8135-0ce2ef76bf37)
+

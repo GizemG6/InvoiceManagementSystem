@@ -87,6 +87,16 @@ Projesinin Çalıştırılması:
 
 •Proje dosyalarını bilgisayarınıza klonlayın:
 ```csharp
-git clone https://github.com/your-repo/ApartmentManagementSystem.git
+git clone https://github.com/GizemG6/InvoiceManagementSystem
 ```
-
+•appsettings.json dosyasını açarak SQL Server bağlantı dizesini düzenleyin:
+```csharp
+"ConnectionStrings": {
+  "DefaultConnection": "Server=YourServerName;Database=ApartmentManagementDB;Trusted_Connection=True;"
+}
+```
+•Terminalden proje klasörüne giderek aşağıdaki komutları çalıştırın:
+```csharp
+dotnet build
+dotnet run
+```

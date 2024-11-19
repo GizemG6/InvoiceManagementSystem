@@ -8,7 +8,7 @@ Bu proje, bir sitenin aidat ve ortak kullanım giderlerini (elektrik, su, doğal
 Proje Özellikleri
 -------------------------
 Admin İşlevleri
-
+.......................
 •Daire bilgilerini ekleyebilir, düzenleyebilir ve silebilir.
 
 •Kullanıcı bilgilerini ekleyebilir ve düzenleyebilir. Kullanıcılar için otomatik şifre oluşturulur.
@@ -22,7 +22,7 @@ Admin İşlevleri
 •Gelen mesajları görüntüleyebilir.
 
 Kullanıcı İşlevleri
-
+.......................
 •Kendisine atanmış aidat ve fatura bilgilerini görüntüleyebilir.
 
 •Kredi kartı ile ödeme yapabilir.
@@ -30,7 +30,7 @@ Kullanıcı İşlevleri
 •Yöneticiye mesaj gönderebilir.
 
 Daire/Konut Bilgileri
-
+.......................
 •Hangi blokta olduğu.
 
 •Durumu (Dolu/Boş).
@@ -44,7 +44,7 @@ Daire/Konut Bilgileri
 •Daire sahibi veya kiracı bilgisi.
 
 Kullanıcı Bilgileri
-
+.......................
 •Ad-Soyad.
 
 •TC Kimlik No.

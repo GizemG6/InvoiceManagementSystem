@@ -8,8 +8,7 @@ Bu proje, bir sitenin aidat ve ortak kullanım giderlerini (elektrik, su, doğal
 Proje Özellikleri
 -------------------------
 Admin İşlevleri
-
-.............................................
+-------------------------
 
 •Daire bilgilerini ekleyebilir, düzenleyebilir ve silebilir.
 
@@ -24,8 +23,7 @@ Admin İşlevleri
 •Gelen mesajları görüntüleyebilir.
 
 Kullanıcı İşlevleri
-
-.............................................
+-------------------------
 
 •Kendisine atanmış aidat ve fatura bilgilerini görüntüleyebilir.
 
@@ -34,8 +32,7 @@ Kullanıcı İşlevleri
 •Yöneticiye mesaj gönderebilir.
 
 Daire/Konut Bilgileri
-
-.............................................
+-------------------------
 
 •Hangi blokta olduğu.
 
@@ -50,8 +47,7 @@ Daire/Konut Bilgileri
 •Daire sahibi veya kiracı bilgisi.
 
 Kullanıcı Bilgileri
-
-.............................................
+-------------------------
 
 •Ad-Soyad.
 
@@ -74,6 +70,7 @@ Kullanılan Teknolojiler
 Kurulum Talimatları
 
 1-Web Projesini Çalıştırma
+-------------------------
 
 Gereksinimler:
 
@@ -104,6 +101,7 @@ dotnet build
 dotnet run
 ```
 2-Kredi Kartı Servisinin Çalıştırılması
+-------------------------
 
 Gereksinimler:
 

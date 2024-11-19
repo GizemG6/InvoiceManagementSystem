@@ -9,7 +9,7 @@ Proje Özellikleri
 -------------------------
 Admin İşlevleri
 
-.......................
+.............................................
 
 •Daire bilgilerini ekleyebilir, düzenleyebilir ve silebilir.
 
@@ -25,7 +25,7 @@ Admin İşlevleri
 
 Kullanıcı İşlevleri
 
-.......................
+.............................................
 
 •Kendisine atanmış aidat ve fatura bilgilerini görüntüleyebilir.
 
@@ -35,7 +35,7 @@ Kullanıcı İşlevleri
 
 Daire/Konut Bilgileri
 
-.......................
+.............................................
 
 •Hangi blokta olduğu.
 
@@ -51,7 +51,7 @@ Daire/Konut Bilgileri
 
 Kullanıcı Bilgileri
 
-.......................
+.............................................
 
 •Ad-Soyad.
 

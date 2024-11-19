@@ -70,3 +70,23 @@ Kullanılan Teknolojiler
 •Veritabanı: MS SQL Server
 
 •Kredi Kartı Servisi: .NET WebAPI ve MongoDB
+
+Kurulum Talimatları
+
+1-Web Projesini Çalıştırma
+
+Gereksinimler:
+
+•.NET 8 SDK
+
+•Visual Studio 2022 veya üzeri
+
+•MS SQL Server
+
+Projesinin Çalıştırılması:
+
+•Proje dosyalarını bilgisayarınıza klonlayın:
+```csharp
+git clone https://github.com/your-repo/ApartmentManagementSystem.git
+```
+
